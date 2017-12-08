@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.chenxcloud.utils.EncodeUtils;
 import cn.chenxhcloud.Application;
 import cn.chenxhcloud.models.common.Greeting;
 import cn.chenxhcloud.services.common.Services;
+import cn.chenxhcloud.utils.EncodeUtils;
 
 @RequestMapping("chenxh-leopard/common")
 @RestController

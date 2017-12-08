@@ -1,4 +1,4 @@
-package cn.chenxcloud.utils;
+package cn.chenxhcloud.utils;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
