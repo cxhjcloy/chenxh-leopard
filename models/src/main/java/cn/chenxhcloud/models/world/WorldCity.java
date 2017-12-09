@@ -1,10 +1,13 @@
 package cn.chenxhcloud.models.world;
 
+import java.io.Serializable;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description="国家城市")
-public class WorldCity {
+public class WorldCity implements Serializable {
+	private static final long serialVersionUID = 7515518428838613549L;
 	@ApiModelProperty(value = "城市id",name="id",example="221")
 	private Integer id;
 	@ApiModelProperty(value = "城市名称",name="name",example="Nova IguaÃ§u")

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
@@ -34,6 +35,7 @@ public class WorldService {
 	}
 
 	@SelectDS("test")
+	@Cacheable(value = "cityName", key = "#root.targetClass + #cityName", unless = "#result eq null")
 	public List<WorldCity> getCityByName(String cityName) {
 		if (log.isInfoEnabled()) {
 			log.info("getCityByName cityName={}", cityName);
