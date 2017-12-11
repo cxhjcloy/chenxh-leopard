@@ -8,7 +8,7 @@ spring:
     druid:      
       #初始化大小，最小，最大
       initial-size: 2      
-      max-active: 5
+      max-active: 8
       min-idle: 1
       # 配置获取连接等待超时的时间
       max-wait: 60000
@@ -17,9 +17,9 @@ spring:
       # 配置一个连接在池中最小生存的时间，单位是毫秒 
       max-evictable-idle-time-millis: 10000000
       validation-query: SELECT 1 FROM DUAL
-      validation-query-timeout: 3000
+      validation-query-timeout: 30000
       test-while-idle: true
-      test-on-borrow: false
+      test-on-borrow: true
       test-on-return: false
       # 打开PSCache，并且指定每个连接上PSCache的大小 
       pool-prepared-statements: true
