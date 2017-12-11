@@ -50,7 +50,7 @@ public class WorldService {
 		return worldMapper.getCityById(cityId);
 	}
 	
-	@SelectDS("cjyun")
+	@SelectDS("mysql")
 	public Iterable<Customer> getAllCustomer() {
 		if (log.isInfoEnabled()) {
 			log.info("getAllCustomer");

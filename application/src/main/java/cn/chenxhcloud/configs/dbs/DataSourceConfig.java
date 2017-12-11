@@ -30,11 +30,11 @@ public class DataSourceConfig {
 		return DataSourceBuilder.create().build();
 	}
 
-	@Bean(name = "cjyun")
-	@ConfigurationProperties(prefix = "spring.mydatasources.cjyun")
+	@Bean(name = "mysql")
+	@ConfigurationProperties(prefix = "spring.mydatasources.mysql")
 	public DataSource cjyun() {
 		if(log.isDebugEnabled()) {
-			log.debug("--------------------init datasource cjyun--------------------");
+			log.debug("--------------------init datasource mysql--------------------");
 		}
 		return DataSourceBuilder.create().build();
 	}
@@ -45,8 +45,8 @@ public class DataSourceConfig {
 	private DataSource test;
 	@Lazy
 	@Autowired
-	@Qualifier("cjyun")
-	private DataSource cjyun;
+	@Qualifier("mysql")
+	private DataSource mysql;
 	
 
 	@Bean("dynamicDataSource")
@@ -54,10 +54,9 @@ public class DataSourceConfig {
 	public DynamicDataSource dataSource() {
 		Map<Object, Object> targetDataSources = new HashMap<>();
 		targetDataSources.put("test", test);
-		targetDataSources.put("cjyun", cjyun);
+		targetDataSources.put("mysql", mysql);
 		DataSourceContextHolder.dataSourceIds.add("test");
-		DataSourceContextHolder.dataSourceIds.add("cjyun");
-		DataSourceContextHolder.dataSourceIds.add("world");
+		DataSourceContextHolder.dataSourceIds.add("mysql");
 		DynamicDataSource dataSource = new DynamicDataSource();
 		dataSource.setTargetDataSources(targetDataSources);
 		dataSource.setDefaultTargetDataSource(test);//defaultDataSource

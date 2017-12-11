@@ -12,17 +12,17 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
-@Table(name = "family_guardian")
+@Table(name = "help_category")
 @ApiModel(description="用户信息")
 public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@ApiModelProperty(value = "id",name="id")
-	@Column(name="user_id")
+	@Column(name="help_category_id")
 	private Long id;
 	
 	@ApiModelProperty(value = "姓",name="firstName", required = true,example="小明")
-	@Column(name="open_id")
+	@Column(name="name")
 	private String firstName;
 
 	public Long getId() {
