@@ -22,6 +22,16 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
+/**
+ * 
+*   
+* 项目名称：chenxh-app  
+* 类名称：cn.chenxhcloud.controllers.WorldController  
+* @author : chenxh  
+* 创建时间：2017年12月12日 下午5:10:55
+* 描述：数据库DEMO测试用例
+*
+ */
 @RestController
 @RequestMapping("chenxh-leopard/world")
 @Api(tags = "World信息")

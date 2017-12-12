@@ -16,7 +16,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
 
-
+/**
+ * 
+*   
+* 项目名称：chenxh-app  
+* 类名称：cn.chenxhcloud.configs.dbs.DataSourceConfig  
+* @author : chenxh  
+* 创建时间：2017年12月12日 下午5:02:24
+* 描述：同时配置多个数据源，配置动态数据源
+*
+ */
 @Configuration
 public class DataSourceConfig {
 	private static final Logger log = LoggerFactory.getLogger(DataSourceConfig.class);
@@ -38,28 +47,42 @@ public class DataSourceConfig {
 		}
 		return DataSourceBuilder.create().build();
 	}
-
+	
+	
 	@Autowired
 	@Lazy//延迟加载
 	@Qualifier("test")
+	/**
+	 * test 数据源
+	 */
 	private DataSource test;
+	
+	
+	/**
+	 * mysql 数据源
+	 */
 	@Lazy
 	@Autowired
 	@Qualifier("mysql")
 	private DataSource mysql;
 	
-
+	
+	/**
+	 * dataSource
+	 * @return DynamicDataSource
+	 */
 	@Bean("dynamicDataSource")
-	@Primary //Primary DataSource
+	@Primary 
 	public DynamicDataSource dataSource() {
-		Map<Object, Object> targetDataSources = new HashMap<>();
+		Map<Object, Object> targetDataSources = new HashMap<>(10);
 		targetDataSources.put("test", test);
 		targetDataSources.put("mysql", mysql);
 		DataSourceContextHolder.dataSourceIds.add("test");
 		DataSourceContextHolder.dataSourceIds.add("mysql");
 		DynamicDataSource dataSource = new DynamicDataSource();
 		dataSource.setTargetDataSources(targetDataSources);
-		dataSource.setDefaultTargetDataSource(test);//defaultDataSource
+		//defaultDataSource
+		dataSource.setDefaultTargetDataSource(test);		
 		dataSource.afterPropertiesSet();
 		if(log.isDebugEnabled()) {
 			log.debug("--------------------init dynamicDataSource--------------------");

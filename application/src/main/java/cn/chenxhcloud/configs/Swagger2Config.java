@@ -13,9 +13,19 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * 
+*   
+* 项目名称：chenxh-app  
+* 类名称：cn.chenxhcloud.configs.Swagger2Config  
+* @author : chenxh  
+* 创建时间：2017年12月12日 下午5:03:13
+* 描述：配置SwaggerAPI文档
+*
+ */
 @Configuration
 @EnableSwagger2
-public class Swagger2Config {//Swagger2 配置
+public class Swagger2Config {
 	@Bean
 	public Docket createRestApi() {
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()

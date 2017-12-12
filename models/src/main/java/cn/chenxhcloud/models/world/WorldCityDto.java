@@ -5,6 +5,16 @@ import java.util.List;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+/**
+ * 
+*   
+* 项目名称：chenxh-models  
+* 类名称：cn.chenxhcloud.models.world.WorldCityDto  
+* @author : chenxh  
+* 创建时间：2017年12月12日 下午5:13:49
+* 描述：
+*
+ */
 @ApiModel(description="国家列表")
 public class WorldCityDto {
 	@ApiModelProperty(value = "记录总数",name="total",example="1")

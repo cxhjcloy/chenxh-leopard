@@ -12,6 +12,16 @@ import org.springframework.stereotype.Component;
 import cn.chenxhcloud.configs.dbs.DataSourceContextHolder;
 import cn.chenxhcloud.models.annotation.SelectDS;
 
+/**
+ * 
+*   
+* 项目名称：chenxh-app  
+* 类名称：cn.chenxhcloud.aop.DynamicDataSourceAspect  
+* @author : chenxh  
+* 创建时间：2017年12月12日 下午5:02:12
+* 描述：AOP拦截，进行动态设置DataSource
+*
+ */
 @Aspect
 @Order(-10)
 @Component
