@@ -24,4 +24,4 @@ server:
 logging:
   level:
     cn:
-      chenxhcloud: info
+      chenxhcloud: debug
