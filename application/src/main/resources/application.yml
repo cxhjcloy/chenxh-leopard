@@ -11,8 +11,8 @@ spring:
       max-active: 20
       min-idle: 5
       max-wait: 60000
-      #time-between-eviction-runs-millis: 300000
-      #max-evictable-idle-time-millis: 10000
+      time-between-eviction-runs-millis: 3000000
+      max-evictable-idle-time-millis: 3000000
       #min-evictable-idle-time-millis: 3600000
       validation-query: SELECT 1
       validation-query-timeout: 30000
