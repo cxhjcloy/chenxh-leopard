@@ -10,8 +10,6 @@ public class PersonProcessor extends ValidatingItemProcessor<Person>  implements
     @Override
     public Person process(Person person) {
     	super.process(person);
-        String firstName = person.getFirstName().toUpperCase();
-        person.setFirstName(firstName);
         return person;
     }
 }

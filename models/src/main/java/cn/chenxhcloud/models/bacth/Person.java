@@ -2,6 +2,8 @@ package cn.chenxhcloud.models.bacth;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Size;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -19,39 +21,16 @@ import io.swagger.annotations.ApiModelProperty;
 public class Person implements Serializable {
 	private static final long serialVersionUID = 8388007160028706292L;
 	
-	@ApiModelProperty(value = "lastName", name = "lastName")
-	private String lastName;
 	
-	@ApiModelProperty(value = "firstName", name = "firstName")
-	private String firstName;
-
-	public Person() {
-
-	}
-
-	public Person(String firstName, String lastName) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	@Override
-	public String toString() {
-		return "firstName: " + firstName + ", lastName: " + lastName;
-	}
+	@ApiModelProperty(value = "id", name = "id")
+	private String id;	
+    @Size(max=4, min=2) // 此处使用JSR-303注解来校验数据
+    @ApiModelProperty(value = "name", name = "name")
+    private String name;
+    @ApiModelProperty(value = "age", name = "age")
+    private Integer age;
+    @ApiModelProperty(value = "nation", name = "nation")
+    private String nation;
+    @ApiModelProperty(value = "address", name = "address")
+    private String address;
 }
