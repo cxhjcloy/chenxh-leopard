@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 
@@ -24,6 +25,7 @@ import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 @SpringBootApplication
 @EnableAspectJAutoProxy(exposeProxy = true)
 @EnableCaching
+@EnableScheduling
 public class Application {
 	
     public static void main(String[] args) {
@@ -31,7 +33,7 @@ public class Application {
     }
     
     /**
-     * 
+     * redisTemplate 采用FastJson序列号缓存数据
      * @param redisConnectionFactory
      * @return
      */

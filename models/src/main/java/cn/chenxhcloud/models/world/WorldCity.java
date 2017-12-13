@@ -68,4 +68,10 @@ public class WorldCity implements Serializable {
 	public void setPopulation(Integer population) {
 		this.population = population;
 	}
+
+	@Override
+	public String toString() {
+		return "WorldCity [id=" + id + ", name=" + name + ", countryCode=" + countryCode + ", district=" + district
+				+ ", population=" + population + "]";
+	}
 }

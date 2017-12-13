@@ -2,8 +2,7 @@ spring:
   aop:
     proxy-target-class: true
   profiles:
-    active:
-    - dev
+    active: dev
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
