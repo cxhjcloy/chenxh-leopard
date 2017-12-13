@@ -1,9 +1,9 @@
-package cn.chenxhcloud.batch;
+package cn.chenxhcloud.batch.demo;
 
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;
 
-public class MyJobListener implements JobExecutionListener{
+public class DemoJobListener implements JobExecutionListener{
 
     @Override
     public void beforeJob(JobExecution jobExecution) {

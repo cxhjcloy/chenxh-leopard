@@ -1,4 +1,4 @@
-package cn.chenxhcloud.batch;
+package cn.chenxhcloud.configs.batch;
 
 import org.springframework.context.annotation.Configuration;
 
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 * 类名称：cn.chenxhcloud.batch.BatchConfig  
 * @author：chenxh  
 * 创建时间：2017年12月13日 下午5:31:07
-* 描述：batch 批处理配置
+* 描述：Person batch 批处理配置
 *
  */
 @Configuration
