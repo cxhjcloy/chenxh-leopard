@@ -1,5 +1,6 @@
 package cn.chenxhcloud;
 
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -26,10 +27,11 @@ import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 @EnableAspectJAutoProxy(exposeProxy = true)
 @EnableCaching
 @EnableScheduling
-public class Application {
+@EnableBatchProcessing
+public class SpringBootAppLauncher {
 	
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(SpringBootAppLauncher.class, args);
     }
     
     /**

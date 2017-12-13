@@ -14,25 +14,27 @@ import cn.chenxhcloud.services.world.WorldService;
  * 
 *   
 * 项目名称：chenxh-app  
-* 类名称：cn.chenxhcloud.scheduled.TestDbConnetcionTask  
+* 类名称：cn.chenxhcloud.scheduled.ScheduledTaskService  
 * @author：chenxh  
-* 创建时间：2017年12月13日 上午10:42:16
-* 描述：定时检测数据库连接状态
+* 创建时间：2017年12月13日 下午5:26:34
+* 描述：定时任务
 *
  */
 @Component
-public class TestDbConnetcionTask {
-	private static final Logger log = LoggerFactory.getLogger(TestDbConnetcionTask.class);
+public class ScheduledTaskService {
+	
+	private static final Logger log = LoggerFactory.getLogger(ScheduledTaskService.class);
+	
 	@Autowired
 	private WorldService worldService;
-	
+
+
 	/**
-	 * second minute, hour, day of month, month and day of week
-	 *  每个5分钟检测一次连接
+	 * second minute, hour, day of month, month and day of week 每隔5分钟检测一次数据库连接
 	 */
-	@Scheduled(cron="0 */5 * * * * ")
-    public void reportCurrentTime() {
+	@Scheduled(cron = "0 */5 * * * * ")
+	public void reportCurrentTime() {
 		WorldCity worldCity = worldService.getCityById(100);
 		log.info(worldCity.toString());
-    }
+	}	
 }
