@@ -25,6 +25,7 @@
 		<module>services</module>
 		<module>models</module>
 		<module>utils</module>
+		<module>batch</module>
 	</modules>
 
 	<repositories>
