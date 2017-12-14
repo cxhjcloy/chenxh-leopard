@@ -77,7 +77,7 @@ public class PersonBatchConfig {
 
 	@Bean
 	public ItemWriter<Person> writer(DataSource dataSource) {
-		log.info("aaa");
+		log.info("PersonBatchConfig.writer invoke");
 		JdbcBatchItemWriter<Person> writer = new JdbcBatchItemWriter<Person>();
 		writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<Person>());
 		writer.setSql("INSERT INTO `people` (`id`, `name`, `age`, `nation`, `address`) VALUES (:id,:name,:age,:nation,:address)");
@@ -102,13 +102,13 @@ public class PersonBatchConfig {
 	}
 
 	@Bean
-	public Job importJob(JobBuilderFactory jobs, Step s1) {
-		return jobs.get("importJob").incrementer(new RunIdIncrementer()).flow(s1).end().listener(personJobListener()).build();
+	public Job personJob(JobBuilderFactory jobs, Step s1) {
+		return jobs.get("personJob").incrementer(new RunIdIncrementer()).flow(s1).end().listener(personJobListener()).build();
 	}
 
 	@Bean
 	public Step step1(StepBuilderFactory stepBuilderFactory, ItemReader<Person> reader, ItemWriter<Person> writer,ItemProcessor<Person, Person> processor) {
-		return stepBuilderFactory.get("step1").<Person, Person>chunk(100).reader(reader).processor(processor).writer(writer).build();
+		return stepBuilderFactory.get("personJobStep1").<Person, Person>chunk(100).reader(reader).processor(processor).writer(writer).build();
 	}
 
 	@Bean

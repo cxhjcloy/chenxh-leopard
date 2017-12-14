@@ -1,6 +1,7 @@
 package cn.chenxhcloud.controllers;
 
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
@@ -26,14 +27,13 @@ public class DemoController {
 	JobLauncher jobLauncher;
 
 	@Autowired
-	Job importJob1;
+	Job job;
 	
-	public JobParameters jobParameters;
 
 	@RequestMapping("/batch/read")
-	public String imp(String fileName) throws Exception {
-		jobParameters = new JobParametersBuilder().addLong("time", System.currentTimeMillis()).toJobParameters();
-		jobLauncher.run(importJob1, jobParameters);
-		return "ok";
+	public JobExecution imp(String fileName) throws Exception {
+		JobParameters jobParameters = new JobParametersBuilder().addLong("time", System.currentTimeMillis()).toJobParameters();
+		JobExecution jobExecution = jobLauncher.run(job, jobParameters);
+		return jobExecution;
 	}
 }
