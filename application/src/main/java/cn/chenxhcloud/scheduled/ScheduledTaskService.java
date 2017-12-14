@@ -2,7 +2,6 @@ package cn.chenxhcloud.scheduled;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
 
+import cn.chenxhcloud.configs.batch.PersonBatchConfig;
 import cn.chenxhcloud.models.world.WorldCity;
 import cn.chenxhcloud.services.world.WorldService;
 
@@ -34,11 +34,10 @@ public class ScheduledTaskService {
 
 	@Autowired
 	JobLauncher jobLauncher;
-
+	
 	@Autowired
-	Job job;
-	
-	
+	private PersonBatchConfig personBatchConfig;
+
 	/**
 	 * second minute, hour, day of month, month and day of week 每隔5分钟检测一次数据库连接
 	 */
@@ -54,10 +53,10 @@ public class ScheduledTaskService {
 		try {
 			JobParameters jobParameters = new JobParametersBuilder().addLong("time", System.currentTimeMillis()).toJobParameters();
 			JobExecution jobExecution;
-			jobExecution = jobLauncher.run(job, jobParameters);
+			jobExecution = jobLauncher.run(personBatchConfig.personJob(), jobParameters);
 			log.info(JSONObject.toJSONString(jobExecution));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-	}
+	}	
 }

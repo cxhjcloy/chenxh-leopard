@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
 
 import cn.chenxhcloud.batch.person.PersonJobListener;
 import cn.chenxhcloud.batch.person.PersonProcessor;
@@ -44,6 +45,7 @@ import cn.chenxhcloud.models.bacth.Person;
  *
  */
 @Configuration
+@Component
 public class PersonBatchConfig {
 	
 	private Logger log = LoggerFactory.getLogger(PersonBatchConfig.class);
@@ -51,6 +53,12 @@ public class PersonBatchConfig {
 	@Autowired
 	@Qualifier("test")
 	private DataSource dataSource;
+	
+	@Autowired
+	private StepBuilderFactory stepBuilderFactory;
+	
+	@Autowired
+	private JobBuilderFactory jobBuilderFactory;
 	
 	@Bean
 	public ItemReader<Person> reader() throws Exception {
@@ -73,7 +81,6 @@ public class PersonBatchConfig {
 		return reader;
 	}
 
-	@Bean
 	public ItemProcessor<Person, Person> processor() {
 		PersonProcessor processor = new PersonProcessor();
 		processor.setValidator(csvBeanValidator());
@@ -105,20 +112,19 @@ public class PersonBatchConfig {
 	}
 
 	@Bean
-	public Job personJob(JobBuilderFactory jobs, Step s1) {
-		return jobs.get("personJob").incrementer(new RunIdIncrementer()).flow(s1).end().listener(personJobListener()).build();
+	public Job personJob() throws Exception {
+		return jobBuilderFactory.get("personJob").incrementer(new RunIdIncrementer()).flow(step1()).end().listener(personJobListener()).build();
 	}
 
 	@Bean
-	public Step step1(StepBuilderFactory stepBuilderFactory, ItemReader<Person> reader, ItemWriter<Person> writer,ItemProcessor<Person, Person> processor) {
-		return stepBuilderFactory.get("personJobStep1").<Person, Person>chunk(100).reader(reader).processor(processor).writer(writer).build();
+	public Step step1() throws Exception {
+		return stepBuilderFactory.get("personJobStep1").<Person, Person>chunk(100).reader(reader()).processor(processor()).writer(writer()).build();
 	}
 
 	@Bean
 	public PersonJobListener personJobListener() {
 		return new PersonJobListener();
 	}
-
 	@Bean
 	public Validator<Person> csvBeanValidator() {
 		return new CsvBeanValidator<Person>();
