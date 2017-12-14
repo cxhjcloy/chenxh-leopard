@@ -2,7 +2,7 @@ spring:
   application:
     name: chenxh-leopard
   redis:
-    host: 127.0.0.1
+    host: 111.230.233.152
     port: 6379
   #配置多个数据源
   mydatasources: 
