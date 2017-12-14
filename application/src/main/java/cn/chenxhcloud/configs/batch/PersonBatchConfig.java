@@ -22,10 +22,11 @@ import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.item.validator.Validator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.transaction.PlatformTransactionManager;
 
 import cn.chenxhcloud.batch.person.PersonJobListener;
 import cn.chenxhcloud.batch.person.PersonProcessor;
@@ -47,6 +48,10 @@ public class PersonBatchConfig {
 	
 	private Logger log = LoggerFactory.getLogger(PersonBatchConfig.class);
 
+	@Autowired
+	@Qualifier("test")
+	private DataSource dataSource;
+	
 	@Bean
 	public ItemReader<Person> reader() throws Exception {
 		FlatFileItemReader<Person> reader = new FlatFileItemReader<Person>();
@@ -76,7 +81,7 @@ public class PersonBatchConfig {
 	}
 
 	@Bean
-	public ItemWriter<Person> writer(DataSource dataSource) {
+	public ItemWriter<Person> writer() {
 		log.info("PersonBatchConfig.writer invoke");
 		JdbcBatchItemWriter<Person> writer = new JdbcBatchItemWriter<Person>();
 		writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<Person>());
@@ -86,18 +91,16 @@ public class PersonBatchConfig {
 	}
 
 	@Bean
-	public JobRepository jobRepository(DataSource dataSource, PlatformTransactionManager transactionManager) throws Exception {
+	public JobRepository jobRepository() throws Exception {
 		JobRepositoryFactoryBean jobRepositoryFactoryBean = new JobRepositoryFactoryBean();
 		jobRepositoryFactoryBean.setDataSource(dataSource);
-		jobRepositoryFactoryBean.setTransactionManager(transactionManager);
-		jobRepositoryFactoryBean.setDatabaseType("mysql");
 		return jobRepositoryFactoryBean.getObject();
 	}
 
 	@Bean
-	public SimpleJobLauncher jobLauncher(DataSource dataSource, PlatformTransactionManager transactionManager) throws Exception {
+	public SimpleJobLauncher jobLauncher() throws Exception {
 		SimpleJobLauncher jobLauncher = new SimpleJobLauncher();
-		jobLauncher.setJobRepository(jobRepository(dataSource, transactionManager));
+		jobLauncher.setJobRepository(jobRepository());
 		return jobLauncher;
 	}
 
