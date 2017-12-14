@@ -80,8 +80,7 @@ public class PersonBatchConfig {
 		log.info("aaa");
 		JdbcBatchItemWriter<Person> writer = new JdbcBatchItemWriter<Person>();
 		writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<Person>());
-		writer.setSql(
-				"INSERT INTO `people` (`id`, `name`, `age`, `nation`, `address`) VALUES (:id,:name,:age,:nation,:address)");
+		writer.setSql("INSERT INTO `people` (`id`, `name`, `age`, `nation`, `address`) VALUES (:id,:name,:age,:nation,:address)");
 		writer.setDataSource(dataSource);
 		return writer;
 	}
@@ -96,8 +95,7 @@ public class PersonBatchConfig {
 	}
 
 	@Bean
-	public SimpleJobLauncher jobLauncher(DataSource dataSource, PlatformTransactionManager transactionManager)
-			throws Exception {
+	public SimpleJobLauncher jobLauncher(DataSource dataSource, PlatformTransactionManager transactionManager) throws Exception {
 		SimpleJobLauncher jobLauncher = new SimpleJobLauncher();
 		jobLauncher.setJobRepository(jobRepository(dataSource, transactionManager));
 		return jobLauncher;
@@ -109,10 +107,8 @@ public class PersonBatchConfig {
 	}
 
 	@Bean
-	public Step step1(StepBuilderFactory stepBuilderFactory, ItemReader<Person> reader, ItemWriter<Person> writer,
-			ItemProcessor<Person, Person> processor) {
-		return stepBuilderFactory.get("step1").<Person, Person>chunk(100).reader(reader).processor(processor)
-				.writer(writer).build();
+	public Step step1(StepBuilderFactory stepBuilderFactory, ItemReader<Person> reader, ItemWriter<Person> writer,ItemProcessor<Person, Person> processor) {
+		return stepBuilderFactory.get("step1").<Person, Person>chunk(100).reader(reader).processor(processor).writer(writer).build();
 	}
 
 	@Bean

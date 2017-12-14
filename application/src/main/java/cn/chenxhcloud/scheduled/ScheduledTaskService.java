@@ -2,14 +2,10 @@ package cn.chenxhcloud.scheduled;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersBuilder;
-import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import cn.chenxhcloud.configs.batch.PersonBatchConfig;
 import cn.chenxhcloud.models.world.WorldCity;
 import cn.chenxhcloud.services.world.WorldService;
 
@@ -30,17 +26,6 @@ public class ScheduledTaskService {
 	private WorldService worldService;
 
 	
-
-	/*@Autowired 
-	private PersonBatchConfig personBatchConfig;
-	
-
-	 
-	@Scheduled(fixedRate = 30000)
-	public void execute() throws Exception {
-		personBatchConfig.importUserJob();
-	}*/
-
 	/**
 	 * second minute, hour, day of month, month and day of week 每隔5分钟检测一次数据库连接
 	 */
