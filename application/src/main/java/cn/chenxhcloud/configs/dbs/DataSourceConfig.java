@@ -50,27 +50,17 @@ public class DataSourceConfig {
 	
 	
 	@Autowired
-	@Lazy//延迟加载
-	@Qualifier("test")
-	/**
-	 * test 数据源
-	 */
+	@Lazy
+	@Qualifier("test")	
 	private DataSource test;
 	
 	
-	/**
-	 * mysql 数据源
-	 */
 	@Lazy
 	@Autowired
 	@Qualifier("mysql")
-	private DataSource mysql;
+	private DataSource mysql;	
 	
 	
-	/**
-	 * dataSource
-	 * @return DynamicDataSource
-	 */
 	@Bean("dynamicDataSource")
 	@Primary 
 	public DynamicDataSource dataSource() {

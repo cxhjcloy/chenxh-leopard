@@ -55,3 +55,7 @@ spring:
         #allow: 127.0.0.1
         #deny: 192.168.0.11
       aop-patterns: cn.chenxhcloud.services.*
+
+  batch:
+    job:
+      enabled: false

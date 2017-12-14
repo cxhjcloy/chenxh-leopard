@@ -28,10 +28,10 @@ import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 @EnableCaching
 @EnableScheduling
 @EnableBatchProcessing
-public class SpringBootAppLauncher {
+public class SpringBootApp {
 	
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootAppLauncher.class, args);
+        SpringApplication.run(SpringBootApp.class, args);
     }
     
     /**

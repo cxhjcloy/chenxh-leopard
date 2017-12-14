@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.chenxhcloud.SpringBootAppLauncher;
 import cn.chenxhcloud.models.common.Greeting;
 import cn.chenxhcloud.services.common.Services;
 import cn.chenxhcloud.utils.EncodeUtils;
@@ -31,7 +30,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @Api(tags = "World信息")
 public class CommonController {
-	private static final Logger  logger = LoggerFactory.getLogger(SpringBootAppLauncher.class);
+	private static final Logger  logger = LoggerFactory.getLogger(CommonController.class);
 
 	@Autowired
     private Services services;
