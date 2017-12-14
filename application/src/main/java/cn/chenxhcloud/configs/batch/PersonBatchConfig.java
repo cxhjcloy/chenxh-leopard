@@ -1,5 +1,7 @@
 package cn.chenxhcloud.configs.batch;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.StepContribution;
@@ -25,6 +27,9 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class PersonBatchConfig {
+	
+	private final Logger log = LoggerFactory.getLogger(PersonBatchConfig.class);
+	
 	@Autowired
 	private JobBuilderFactory jobBuilderFactory;
 
@@ -35,6 +40,7 @@ public class PersonBatchConfig {
 	public Step step1() {
 		return stepBuilderFactory.get("step1").tasklet(new Tasklet() {
 			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) {
+				log.debug("step1 invoke!!!");
 				return null;
 			}
 		}).build();
@@ -42,6 +48,7 @@ public class PersonBatchConfig {
 
 	@Bean
 	public Job job(Step step1) throws Exception {
+		log.debug("job invoke!!!");
 		return jobBuilderFactory.get("job1").incrementer(new RunIdIncrementer()).start(step1).build();
 	}
 }
