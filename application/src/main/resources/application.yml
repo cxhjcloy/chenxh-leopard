@@ -57,5 +57,9 @@ spring:
       aop-patterns: cn.chenxhcloud.services.*
 
   batch:
+    file-path:
+      src: D:/tmp/data/alipay/
+      dist: D:/tmp/data/alipay/result/
     job:
       enabled: false
+      
