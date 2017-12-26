@@ -1,6 +1,8 @@
 package cn.chenxhcloud.services.thread.mappers;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import cn.chenxhcloud.models.thread.ThreadInfo;
@@ -17,10 +19,12 @@ import cn.chenxhcloud.models.thread.ThreadInfo;
  */
 @Mapper
 @Repository
-public class ThreadDbDao {
-
-	public int save(ThreadInfo threadInfo) {
-		return 0;
-	}
-
+public interface ThreadDbDao {
+	/**
+	 * save threadinfo
+	 * @param threadInfo
+	 * @return
+	 */
+	@Insert("INSERT INTO `tb_threads` ( `data_id`, `name`, `queue_size`, `counter`, `message`) VALUES (#{threadInfo.dataId}, #{threadInfo.name}, #{threadInfo.queueSize}, #{threadInfo.counter}, #{threadInfo.message});")
+	int save(@Param("threadInfo") ThreadInfo threadInfo);
 }

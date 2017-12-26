@@ -54,6 +54,7 @@ public class MyQueue {
 			threadInfo.setMessage(str);
 			threadInfo.setCounter(MyThreadLocal2.get());
 			threadInfo.setDataId(element.getId());
+			threadInfo.setQueueSize(queue.size());
 			threadDbService.save(threadInfo);
 			queue.add(element);
 			//this.notifyAll();
@@ -84,6 +85,7 @@ public class MyQueue {
 				threadInfo.setMessage(str1);
 				threadInfo.setCounter(MyThreadLocal.get());
 				threadInfo.setDataId(data.getId());
+				threadInfo.setQueueSize(queue.size());
 				threadDbService.save(threadInfo);
 			}
 		} catch (Exception e) {

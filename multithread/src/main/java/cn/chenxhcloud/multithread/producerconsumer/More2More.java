@@ -1,6 +1,6 @@
 package cn.chenxhcloud.multithread.producerconsumer;
 
-
+import org.springframework.stereotype.Component;
 
 /**
  * 
@@ -12,6 +12,7 @@ package cn.chenxhcloud.multithread.producerconsumer;
 * 描述：
 *
  */
+@Component
 public class More2More  {
 	
 	public void testValue() {
