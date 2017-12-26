@@ -26,6 +26,7 @@
 		<module>models</module>
 		<module>utils</module>
 		<module>batch</module>
+		<module>multithread</module>
 	</modules>
 
 	<repositories>

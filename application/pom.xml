@@ -23,6 +23,13 @@
 			<artifactId>chenxh-batch</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>cn.chenxhcloud</groupId>
+			<artifactId>chenxh-multithread</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		
 		<!-- webserver -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
