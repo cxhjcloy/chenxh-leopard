@@ -64,7 +64,7 @@ public class ScheduledTaskService {
 	 *     5月份           1-12 或者 JAN-DEC 
 	 *     6星期           1-7 或者 SUN-SAT
 	 */
-	@Scheduled(cron = "0 45 15 27 DEC WED")
+	@Scheduled(cron = "0 59 16 27 DEC WED")
 	public void startThreads() {
 		log.info("job begin {}", dateFormat.format(new Date()));
 		more2More.start();
