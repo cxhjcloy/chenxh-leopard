@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class More2More  {
 	
-	public void testValue() {
+	public void start() {
 		MyQueue queue = new MyQueue();
 		Thread producer1 = new Thread(new Producer(queue), "producer1");
 		Thread producer2 = new Thread(new Producer(queue), "producer2");
