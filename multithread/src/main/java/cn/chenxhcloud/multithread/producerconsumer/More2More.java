@@ -1,6 +1,7 @@
 package cn.chenxhcloud.multithread.producerconsumer;
 
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 
@@ -12,11 +13,19 @@ import org.springframework.stereotype.Component;
 * 描述：
 *
  */
-@Component
+@Service
 public class More2More  {
 	
+	@Autowired
+	MyQueue queue;
+	
+	public static void main(String[] args) {
+		More2More more2More = new More2More();
+		more2More.start();
+	}
+	
 	public void start() {
-		MyQueue queue = new MyQueue();
+		
 		Thread producer1 = new Thread(new Producer(queue), "producer1");
 		Thread producer2 = new Thread(new Producer(queue), "producer2");
 		Thread producer3 = new Thread(new Producer(queue), "producer3");

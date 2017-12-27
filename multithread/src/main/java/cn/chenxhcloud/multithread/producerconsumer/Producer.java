@@ -22,12 +22,11 @@ public class Producer implements Runnable{
     @Override
     public void run() {
         for (;;) {
-        	/*try {
-				Thread.sleep(400);
+        	try {
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}*/
-        	
+			}        	
         	queue.push();
         }
     }

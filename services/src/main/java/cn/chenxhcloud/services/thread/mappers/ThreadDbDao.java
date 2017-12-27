@@ -3,7 +3,6 @@ package cn.chenxhcloud.services.thread.mappers;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import cn.chenxhcloud.models.thread.ThreadInfo;
 
@@ -18,7 +17,6 @@ import cn.chenxhcloud.models.thread.ThreadInfo;
 *
  */
 @Mapper
-@Repository
 public interface ThreadDbDao {
 	/**
 	 * save threadinfo

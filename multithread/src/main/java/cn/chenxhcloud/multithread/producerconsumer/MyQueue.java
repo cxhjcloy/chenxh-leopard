@@ -2,9 +2,10 @@ package cn.chenxhcloud.multithread.producerconsumer;
 
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 
 import cn.chenxhcloud.models.thread.ThreadInfo;
 import cn.chenxhcloud.models.thread.threadlocal.MyCustomerThreadLocal;
@@ -23,35 +24,41 @@ import cn.chenxhcloud.services.thread.ThreadDbService;
 * 描述：
 *
  */
+@Component
 public class MyQueue {
+	
+
 	
 	@Autowired
 	private ThreadDbService threadDbService;
+	
+	@Autowired
+    private RedisTemplate<String, ?> redisTemplate;
 	
 	/**
 	 *定义volatile变量
 	 */
 	private volatile ConcurrentLinkedQueue<MyQueueData> queue = new ConcurrentLinkedQueue<MyQueueData>();
 
-	private static final AtomicLong ATOMICLONG = new AtomicLong(1);
 
 	public  void push() {
 		try {
 			while (queue.size() >= 50) {
-				System.out.println("[生产者]push操作中的" + Thread.currentThread().getName() + "呈现wait状态");
+				//logger.info("[生产者]push操作中的" + Thread.currentThread().getName() + "呈现wait状态");
 				return;
 			}
+			String threadName = System.getenv("HOSTNAME")+Thread.currentThread().getName();
 			MyQueueData element = new MyQueueData();
-			element.setId(ATOMICLONG.getAndIncrement());
+			element.setId(redisTemplate.opsForValue().increment("chenxh_leopard_thread_data_id", 1));
 			element.setName(UUID.randomUUID().toString());
 			// LocalThread记录每个线程数据
 			Long counter = MyProducerThreadLocal.get();
 			MyProducerThreadLocal.set(counter + 1);
 			counter = MyProducerThreadLocal.get();
-			String str = "[生产者]push queueSize= " + queue.size() + " | " + Thread.currentThread().getName() + "中 data："+ element + " 执行了" + counter + "次";
-			System.out.println(str);
+			String str = "[生产者]push queueSize= " + queue.size() + " | " + threadName + "中 data："+ element + " 执行了" + counter + "次";
+			//logger.info(str);
 			ThreadInfo threadInfo = new ThreadInfo();
-			threadInfo.setName(Thread.currentThread().getName());
+			threadInfo.setName(threadName);
 			threadInfo.setMessage(str);
 			threadInfo.setCounter(counter);
 			threadInfo.setDataId(element.getId());
@@ -67,17 +74,17 @@ public class MyQueue {
 		MyQueueData data = null;
 		try {
 			if (queue.isEmpty()) {
-				System.out.println("[消费者]pop操作中的" + Thread.currentThread().getName() + "呈现wait状态");
+				//logger.info("[消费者]pop操作中的" + Thread.currentThread().getName() + "呈现wait状态");
 				return null;
 			}
-			String threadName = Thread.currentThread().getName();
+			String threadName = System.getenv("HOSTNAME")+Thread.currentThread().getName();
 			if (!queue.isEmpty()) {
 				data = queue.poll();
 				Long counter = MyCustomerThreadLocal.get();						
 				MyCustomerThreadLocal.set(counter + 1);
 				counter = MyCustomerThreadLocal.get();
 				String str1 = "[消费者]pop queueSize= " + queue.size() + " | " + threadName+ "中 data：" + data + " 执行了" + counter + "次";
-				System.out.println(str1);
+				//logger.info(str1);
 				ThreadInfo threadInfo = new ThreadInfo();
 				threadInfo.setName(threadName);
 				threadInfo.setMessage(str1);
@@ -94,8 +101,10 @@ public class MyQueue {
 }
 
 class MyQueueData{
+	
 	private Long id;
 	private String name;
+	
 	public Long getId() {
 		return id;
 	}
@@ -107,5 +116,9 @@ class MyQueueData{
 	}
 	public void setName(String name) {
 		this.name = name;
-	}	
+	}
+	@Override
+	public String toString() {
+		return "MyQueueData [id=" + id + ", name=" + name + "]";
+	}
 }
