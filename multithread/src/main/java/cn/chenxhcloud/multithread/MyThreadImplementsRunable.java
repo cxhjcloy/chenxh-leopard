@@ -1,7 +1,15 @@
 package cn.chenxhcloud.multithread;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 /**
  * 
@@ -16,23 +24,11 @@ import org.slf4j.LoggerFactory;
 public class MyThreadImplementsRunable {
 	private final static Logger log  = LoggerFactory.getLogger(MyThreadImplementsRunable.class);
 	public static void main(String[] args) {
-		ThreadImplementRunable threadImplementRunable = new ThreadImplementRunable();
-		Thread thread1 = new Thread(threadImplementRunable,"thread1");
-		Thread thread2 = new Thread(threadImplementRunable,"thread2");
-		Thread thread3 = new Thread(()-> {
-			log.info(Thread.currentThread().getName()+" running.");
-			
-		},"thread3");
-		thread1.start();
-		thread2.start();
-		thread3.start();
-	}
-}
-
-class ThreadImplementRunable implements Runnable{
-	private final static Logger log  = LoggerFactory.getLogger(ThreadImplementRunable.class);
-	@Override
-	public void run() {
-		log.info(Thread.currentThread().getName()+" running.");
+		ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("chenxh-thread-%d").build();
+		ExecutorService producerPool = new ThreadPoolExecutor(10, 500, 1110L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+		producerPool.execute(()->{
+			log.debug(Thread.currentThread().getName()+" run...");
+		});
+		producerPool.shutdown();
 	}
 }

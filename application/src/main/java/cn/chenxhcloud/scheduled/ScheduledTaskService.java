@@ -28,7 +28,7 @@ import cn.chenxhcloud.services.world.WorldService;
 public class ScheduledTaskService {
 
 	private static final Logger log = LoggerFactory.getLogger(ScheduledTaskService.class);
-	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	
 	@Autowired
@@ -49,11 +49,13 @@ public class ScheduledTaskService {
 		log.info(worldCity.toString());
 	}
 	
-	//@Scheduled(cron = "0 */2 * * * * ")
+	/**
+	 * //@Scheduled(cron = "0 *\/2 * * * * ")
+	 */
 	public void fixedBillBatch() {
-		log.info("job begin {}", dateFormat.format(new Date()));
+		log.info("job begin {}", DATE_FORMAT.format(new Date()));
 		billBatchConfig.run();
-		log.info("job end {}", dateFormat.format(new Date()));
+		log.info("job end {}", DATE_FORMAT.format(new Date()));
 	}
 	/**
 	 * second, minute, hour, day of month, month and day of week.
@@ -64,10 +66,10 @@ public class ScheduledTaskService {
 	 *     5月份           1-12 或者 JAN-DEC 
 	 *     6星期           1-7 或者 SUN-SAT
 	 */
-	@Scheduled(cron = "0 59 16 27 DEC WED")
+	@Scheduled(cron = "0 25 19 27 DEC WED")
 	public void startThreads() {
-		log.info("job begin {}", dateFormat.format(new Date()));
+		log.info("job begin {}", DATE_FORMAT.format(new Date()));
 		more2More.start();
-		log.info("job end {}", dateFormat.format(new Date()));
+		log.info("job end {}", DATE_FORMAT.format(new Date()));
 	}
 }

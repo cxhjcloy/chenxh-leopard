@@ -1,5 +1,16 @@
 package cn.chenxhcloud.multithread.threadexecutor;
 
+
+/**
+ * 
+*   
+* 项目名称：chenxh-leopard  
+* 类名称：.MyThreadExtendsThread  
+* @author：chenxh  
+* 创建时间：2017年12月27日 下午6:02:12
+* 描述：
+*
+ */
 public class MyThreadExtendsThread extends Thread {
 	
 	public MyThreadExtendsThread(String name) {

@@ -1,5 +1,16 @@
 package cn.chenxhcloud.multithread.threadexecutor;
 
+
+/**
+ * 
+*   
+* 项目名称：chenxh-leopard  
+* 类名称：.PageInfo  
+* @author：chenxh  
+* 创建时间：2017年12月27日 下午6:02:27
+* 描述：
+*
+ */
 public class PageInfo {
 	private Integer start;
 	private Integer end;

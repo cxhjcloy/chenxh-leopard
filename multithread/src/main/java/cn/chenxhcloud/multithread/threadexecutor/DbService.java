@@ -8,6 +8,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * 
+*   
+* 项目名称：chenxh-leopard  
+* 类名称：.DbService  
+* @author：chenxh  
+* 创建时间：2017年12月27日 下午6:01:54
+* 描述：
+*
+ */
 public class DbService {
 	private static Connection getConn() {
 		String driver = "com.mysql.cj.jdbc.Driver";
@@ -16,7 +27,8 @@ public class DbService {
 		String password = "cxh123456";
 		Connection conn = null;
 		try {
-			Class.forName(driver); // classLoader,加载对应驱动
+			// classLoader,加载对应驱动
+			Class.forName(driver); 
 			conn = (Connection) DriverManager.getConnection(url, username, password);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

@@ -57,7 +57,8 @@ public class BillBatchConfig {
 			String dateParam = new Date().toString();
 			JobParameters param =    new JobParametersBuilder().addString("date", dateParam).toJobParameters();
 			log.info(dateParam);
-			JobExecution execution = jobLauncher.run(importAliJob(), param);             //执行job
+            //执行job
+			JobExecution execution = jobLauncher.run(importAliJob(), param);
 			log.info("Exit Status :{} " , execution.getStatus());
 		} catch (Exception e) {
 			e.printStackTrace();

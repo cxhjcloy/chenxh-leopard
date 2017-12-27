@@ -2,6 +2,16 @@ package cn.chenxhcloud.multithread.threadexecutor;
 
 import java.util.Date;
 
+/**
+ * 
+*   
+* 项目名称：chenxh-leopard  
+* 类名称：.ThreadInfo  
+* @author：chenxh  
+* 创建时间：2017年12月27日 下午6:02:33
+* 描述：
+*
+ */
 public class ThreadInfo {
 	private Long id;
 	private Long dataId;

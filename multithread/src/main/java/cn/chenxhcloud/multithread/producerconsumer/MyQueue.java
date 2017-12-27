@@ -27,7 +27,7 @@ import cn.chenxhcloud.services.thread.ThreadDbService;
 @Component
 public class MyQueue {
 	
-
+	private static final int QUEUE_SIZE = 50;
 	
 	@Autowired
 	private ThreadDbService threadDbService;
@@ -43,20 +43,17 @@ public class MyQueue {
 
 	public  void push() {
 		try {
-			while (queue.size() >= 50) {
-				//logger.info("[生产者]push操作中的" + Thread.currentThread().getName() + "呈现wait状态");
+			while (queue.size() >= QUEUE_SIZE) {
 				return;
 			}
-			String threadName = System.getenv("HOSTNAME")+Thread.currentThread().getName();
+			String threadName = System.getenv("HOSTNAME")+"-"+Thread.currentThread().getName();
 			MyQueueData element = new MyQueueData();
 			element.setId(redisTemplate.opsForValue().increment("chenxh_leopard_thread_data_id", 1));
 			element.setName(UUID.randomUUID().toString());
-			// LocalThread记录每个线程数据
 			Long counter = MyProducerThreadLocal.get();
 			MyProducerThreadLocal.set(counter + 1);
 			counter = MyProducerThreadLocal.get();
 			String str = "[生产者]push queueSize= " + queue.size() + " | " + threadName + "中 data："+ element + " 执行了" + counter + "次";
-			//logger.info(str);
 			ThreadInfo threadInfo = new ThreadInfo();
 			threadInfo.setName(threadName);
 			threadInfo.setMessage(str);
@@ -74,17 +71,15 @@ public class MyQueue {
 		MyQueueData data = null;
 		try {
 			if (queue.isEmpty()) {
-				//logger.info("[消费者]pop操作中的" + Thread.currentThread().getName() + "呈现wait状态");
 				return null;
 			}
-			String threadName = System.getenv("HOSTNAME")+Thread.currentThread().getName();
+			String threadName = System.getenv("HOSTNAME")+"-"+Thread.currentThread().getName();
 			if (!queue.isEmpty()) {
 				data = queue.poll();
 				Long counter = MyCustomerThreadLocal.get();						
 				MyCustomerThreadLocal.set(counter + 1);
 				counter = MyCustomerThreadLocal.get();
 				String str1 = "[消费者]pop queueSize= " + queue.size() + " | " + threadName+ "中 data：" + data + " 执行了" + counter + "次";
-				//logger.info(str1);
 				ThreadInfo threadInfo = new ThreadInfo();
 				threadInfo.setName(threadName);
 				threadInfo.setMessage(str1);

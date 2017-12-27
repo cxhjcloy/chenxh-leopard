@@ -14,7 +14,7 @@ package cn.chenxhcloud.models.thread.threadlocal;
 *
  */
 public class MyCustomerThreadLocal {
-	private final static ThreadLocal<Long> threadLocal = new ThreadLocal<Long>() {
+	private final static ThreadLocal<Long> MY_THREADLOCAL = new ThreadLocal<Long>() {
 		/**
 		 * 初始化
 		 */
@@ -24,9 +24,9 @@ public class MyCustomerThreadLocal {
 		}
 	};
 	public static void set(Long data) {
-		threadLocal.set(data);
+		MY_THREADLOCAL.set(data);
 	}
 	public static Long get() {
-		return threadLocal.get();
+		return MY_THREADLOCAL.get();
 	}
 }
