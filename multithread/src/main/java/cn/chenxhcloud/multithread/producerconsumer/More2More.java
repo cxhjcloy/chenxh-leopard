@@ -22,7 +22,10 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
  */
 @Service
 public class More2More {
+	
+	
 	private static final int CONCURRENT_NUM = 50;
+	
 	@Autowired
 	MyQueue queue;
 
@@ -34,13 +37,13 @@ public class More2More {
 	public void start() {
 
 		ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("producer-thread-%d").build();
-		ExecutorService producerPool = new ThreadPoolExecutor(50, 500, 1110L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+		ExecutorService producerPool = new ThreadPoolExecutor(50, 100, 0L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
 		for (int i = 0; i < CONCURRENT_NUM; i++) {
 			producerPool.execute(new Producer(queue));
 		}
 
 		namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("customer-thread-%d").build();
-		ExecutorService customerPool = new ThreadPoolExecutor(50, 500, 1110L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+		ExecutorService customerPool = new ThreadPoolExecutor(50, 100, 0L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
 		for (int i = 0; i < CONCURRENT_NUM; i++) {
 			customerPool.execute(new Customer(queue));
 		}

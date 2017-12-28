@@ -33,7 +33,7 @@ public class MultiThreadController {
     	if(logger.isDebugEnabled()) {
     		logger.debug("multiThread start invoke");
     	}
-    	int a = 0;
+    	int a = 1;
     	if(a == 1) {
     		more2More.start();
     	}else {

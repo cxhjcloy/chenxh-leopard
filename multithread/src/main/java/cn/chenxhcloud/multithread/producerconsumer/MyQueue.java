@@ -41,7 +41,7 @@ public class MyQueue {
 	private volatile ConcurrentLinkedQueue<MyQueueData> queue = new ConcurrentLinkedQueue<MyQueueData>();
 
 
-	public  void push() {
+	public void push() {
 		try {
 			while (queue.size() >= QUEUE_SIZE) {
 				return;
@@ -67,14 +67,15 @@ public class MyQueue {
 		}
 	}
 
-	public  MyQueueData pop() {
+	public MyQueueData pop() {
 		MyQueueData data = null;
 		try {
-			if (queue.isEmpty()) {
+			while (queue.isEmpty()) {
 				return null;
 			}
 			String threadName = System.getenv("HOSTNAME")+"-"+Thread.currentThread().getName();
-			if (!queue.isEmpty()) {
+			data = queue.poll();
+			if (data != null) {
 				data = queue.poll();
 				Long counter = MyCustomerThreadLocal.get();						
 				MyCustomerThreadLocal.set(counter + 1);
@@ -98,6 +99,7 @@ public class MyQueue {
 class MyQueueData{
 	
 	private Long id;
+	
 	private String name;
 	
 	public Long getId() {
