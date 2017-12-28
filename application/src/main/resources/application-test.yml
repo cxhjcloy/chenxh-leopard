@@ -2,9 +2,8 @@ spring:
   application:
     name: chenxh-leopard
   redis:
-    host: 127.0.0.1
+    host: 111.230.233.152
     port: 6379
-    
   #配置多个数据源
   mydatasources: 
     test:
@@ -12,16 +11,16 @@ spring:
       username: root
       password: cxh234mca$
       type: com.alibaba.druid.pool.DruidDataSource
-      driver-class-name: com.mysql.jdbc.Driver     
-    mysql:
+      driver-class-name: com.mysql.jdbc.Driver      
+    mysql:      
       url: jdbc:mysql://gz-cdb-e3mogspj.sql.tencentcdb.com:63643/mysql?characterEncoding=utf8&useSSL=false&autoReconnect=true
       username: root
       password: cxh234mca$
-      type: com.alibaba.druid.pool.DruidDataSource      
-      driverClassName: com.mysql.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver              
 server:
-  port: 7009
+  port: 7001
 logging:
   level:
     cn:
-      chenxhcloud: debug
+      chenxhcloud: error
