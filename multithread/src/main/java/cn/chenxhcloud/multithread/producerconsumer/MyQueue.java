@@ -76,7 +76,6 @@ public class MyQueue {
 			String threadName = System.getenv("HOSTNAME")+"-"+Thread.currentThread().getName();
 			data = queue.poll();
 			if (data != null) {
-				data = queue.poll();
 				Long counter = MyCustomerThreadLocal.get();						
 				MyCustomerThreadLocal.set(counter + 1);
 				counter = MyCustomerThreadLocal.get();
