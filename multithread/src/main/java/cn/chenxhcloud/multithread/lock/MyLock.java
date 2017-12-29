@@ -19,10 +19,10 @@ import org.slf4j.LoggerFactory;
  */
 public class MyLock {
 
-	private final static ReentrantLock lock = new ReentrantLock();
-	private final static List<Integer> arrayList = new ArrayList<>();
+	private final static ReentrantLock LOCK = new ReentrantLock();
+	private final static List<Integer> ARRAY_LIST = new ArrayList<>();
 	private final static Integer COUNTER = 5;
-	private final static Logger log = LoggerFactory.getLogger(MyLock.class);
+	private final static Logger LOG = LoggerFactory.getLogger(MyLock.class);
 
 	public static void main(String[] args) {
 		Thread thread1 = new Thread(() -> {
@@ -51,19 +51,19 @@ public class MyLock {
 	}
 
 	public static void doSomeThing() throws InterruptedException {
-		lock.lock();
+		LOCK.lock();
 		try {
-			log.debug("线程{}得到了锁...", Thread.currentThread().getName());
+			LOG.debug("线程{}得到了锁...", Thread.currentThread().getName());
 			for (int i = 0; i < COUNTER; i++) {
 				Thread.sleep(1000);
-				arrayList.add(i);
-				log.debug("线程{} arrayList={}", Thread.currentThread().getName(), arrayList.size());
+				ARRAY_LIST.add(i);
+				LOG.debug("线程{} arrayList={}", Thread.currentThread().getName(), ARRAY_LIST.size());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			log.debug("线程{}释放了锁...", Thread.currentThread().getName());
-			lock.unlock();
+			LOG.debug("线程{}释放了锁...", Thread.currentThread().getName());
+			LOCK.unlock();
 		}
 	}
 }

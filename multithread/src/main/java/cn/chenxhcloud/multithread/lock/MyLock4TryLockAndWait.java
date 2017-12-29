@@ -26,6 +26,7 @@ public class MyLock4TryLockAndWait {
 	private final List<Integer> arrayList = new ArrayList<>();
 	private final Logger log = LoggerFactory.getLogger(MyLock.class);
 	private final Integer COUNTER = 5;
+	private final Integer TRY_LOCK_TIME = 5;
 
 	public static void main(String[] args) {
 		MyLock4TryLockAndWait obj = new MyLock4TryLockAndWait();
@@ -48,7 +49,7 @@ public class MyLock4TryLockAndWait {
 	}
 
 	private void doSomeThing() throws InterruptedException {
-		if (lock.tryLock(6,TimeUnit.SECONDS)) {
+		if (lock.tryLock(TRY_LOCK_TIME,TimeUnit.SECONDS)) {
 			try {
 				log.debug("线程{}得到了锁...", Thread.currentThread().getName());
 				for (int i = 0; i < COUNTER; i++) {
