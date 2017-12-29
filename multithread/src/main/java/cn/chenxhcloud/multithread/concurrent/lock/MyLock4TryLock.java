@@ -1,4 +1,4 @@
-package cn.chenxhcloud.multithread.lock;
+package cn.chenxhcloud.multithread.concurrent.lock;
 
 import java.util.ArrayList;
 import java.util.List;
