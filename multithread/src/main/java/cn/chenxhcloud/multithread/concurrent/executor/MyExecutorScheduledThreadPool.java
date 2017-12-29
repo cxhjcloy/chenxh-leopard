@@ -1,11 +1,14 @@
 package cn.chenxhcloud.multithread.concurrent.executor;
 
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 /**
  * 
@@ -21,14 +24,15 @@ public class MyExecutorScheduledThreadPool {
 	private final static Logger log = LoggerFactory.getLogger(MyExecutorScheduledThreadPool.class);
 
 	public static void main(String[] args) {
-		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
+		ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("demo-pool-%d").build();
+		ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(5,namedThreadFactory);
 		Runnable syncRunnable = () -> {
-			try {
-				Thread.sleep(500);
+			/*try {
+				TimeUnit.SECONDS.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
-			log.info(Thread.currentThread().getName());
+			}*/
+			log.info("[{}]HeartBeat....",Thread.currentThread().getName());
 		};
 		executorService.scheduleAtFixedRate(syncRunnable, 3, 2, TimeUnit.SECONDS);
 		//executorService.shutdown();

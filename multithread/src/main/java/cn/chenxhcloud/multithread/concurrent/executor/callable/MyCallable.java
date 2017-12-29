@@ -5,11 +5,16 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 /**
  * 
@@ -27,7 +32,8 @@ public class MyCallable {
 	private final static Integer COUNTER_NUM = 10;
 
 	public static void main(String[] args) {
-		ExecutorService executorService = Executors.newCachedThreadPool();
+		ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("mycallable-pool-%d").build();
+		ExecutorService executorService = new ThreadPoolExecutor(10, 200, 60L, TimeUnit.SECONDS,new SynchronousQueue<Runnable>(), namedThreadFactory);
 		List<Future<String>> resultList = new ArrayList<Future<String>>();
 
 		for (int i = 0; i < COUNTER_NUM; i++) {

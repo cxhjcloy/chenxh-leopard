@@ -1,10 +1,15 @@
 package cn.chenxhcloud.multithread.concurrent.executor;
 
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 /**
  * 
@@ -19,8 +24,10 @@ import org.slf4j.LoggerFactory;
 public class MyExecutorFixedThreadPool {
 	private final static Logger log = LoggerFactory.getLogger(MyExecutorFixedThreadPool.class);
 	private final static Integer COUNTER_NUM = 20;
+
 	public static void main(String[] args) {
-		ExecutorService executorService = Executors.newFixedThreadPool(5);
+		ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("demo-pool-%d").build();
+		ExecutorService executorService = new ThreadPoolExecutor(10, 100, 0L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(), namedThreadFactory);
 		Runnable syncRunnable = new Runnable() {
 			@Override
 			public void run() {
