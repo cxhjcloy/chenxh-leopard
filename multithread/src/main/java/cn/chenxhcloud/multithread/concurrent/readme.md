@@ -59,7 +59,7 @@ CachedThreadPool适用于执行很多短期异步任务的小程序，适用于�
 
  
 
-##ScheduledThreadPoolExecutor类(java.util.concurrent.ScheduledThreadPoolExecutor)
+##ScheduledThreadPoolExecutor类
 
 它是ThreadPoolExecutor的子类且实现了ScheduledExecutorService接口，它可以在给定的延迟时间后执行命令，或者定期执行命令，它比Timer更强大更灵活。
 
