@@ -21,18 +21,18 @@ import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
 import ch.ethz.ssh2.StreamGobbler;
 
-public class SSHDemo {
+public class SshDemo {
 	
-	private static final Logger log = Logger.getLogger("SSHDemo");
+	private static final Logger LOG = Logger.getLogger("SSHDemo");
 	
 	public static String execShellScript(String host, String username, String password,String cmd, int port) throws IOException {
-		log.info("running SSH cmd [" + cmd + "]");
+		LOG.info("running SSH cmd [" + cmd + "]");
 		Connection connection = null;
 		Session sess = null;
 		InputStream stdout = null;
 		BufferedReader br = null;
 		StringBuffer buffer = new StringBuffer("exec result:");
-		buffer.append(System.getProperty("line.separator"));// 换行
+		buffer.append(System.getProperty("line.separator"));
 		try {
 			connection = new Connection(host, port);
 			connection.connect();
@@ -49,8 +49,8 @@ public class SSHDemo {
 					break;
 				}
 				buffer.append(line);
-				buffer.append(System.getProperty("line.separator"));// 换行
-				log.info("--"+line);
+				buffer.append(System.getProperty("line.separator"));
+				LOG.info("--"+line);
 			}
 		} finally {
 			if (br != null) {
@@ -70,11 +70,11 @@ public class SSHDemo {
 		String cmd = "cat /home/ubuntu/myapps/snow-leopard/webapps/Dockerfile";
 		try {
 			String info = execShellScript("111.230.233.152", "ubuntu", "cxh234mca$", cmd, 22);
-			log.info(info);
+			LOG.info(info);
 			info = execShellScript("111.230.233.152", "ubuntu", "cxh234mca$", "ls -al", 22);
-			log.info(info);
+			LOG.info(info);
 			info = execShellScript("111.230.233.152", "ubuntu", "cxh234mca$", "docker info", 22);
-			log.info(info);
+			LOG.info(info);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
