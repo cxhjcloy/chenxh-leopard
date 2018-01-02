@@ -21,7 +21,7 @@ import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
 import ch.ethz.ssh2.StreamGobbler;
 
-public class SSHDemo {
+public class SshDemo {
 	
 	private static final Logger log = Logger.getLogger("SSHDemo");
 	
@@ -32,7 +32,7 @@ public class SSHDemo {
 		InputStream stdout = null;
 		BufferedReader br = null;
 		StringBuffer buffer = new StringBuffer("exec result:");
-		buffer.append(System.getProperty("line.separator"));// 换行
+		buffer.append(System.getProperty("line.separator"));
 		try {
 			connection = new Connection(host, port);
 			connection.connect();
@@ -49,7 +49,7 @@ public class SSHDemo {
 					break;
 				}
 				buffer.append(line);
-				buffer.append(System.getProperty("line.separator"));// 换行
+				buffer.append(System.getProperty("line.separator"));
 				log.info("--"+line);
 			}
 		} finally {
