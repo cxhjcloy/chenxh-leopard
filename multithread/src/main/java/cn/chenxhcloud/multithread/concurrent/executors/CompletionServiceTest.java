@@ -37,10 +37,15 @@ public class CompletionServiceTest {
 		for (int i = 1; i <= COUNTER; i++) {
 			final int temp = i;
 			completionService.submit(()-> {
-				Thread.sleep(new Random().nextInt(5000));
-				LOG.debug(Thread.currentThread().getName() + " run..." );
-				return Thread.currentThread().getName() + "-" + temp;
+				int randomInt = new Random().nextInt(5000);
+				Thread.sleep(randomInt);
+				//LOG.debug(Thread.currentThread().getName() + " run..." );
+				return Thread.currentThread().getName() + "-" + temp+"-sleepTime-"+randomInt;
 			});
+		}
+		for (int i = 1; i <= COUNTER; i++) {
+		LOG.debug(completionService.take().get());
+		LOG.debug(completionService.take().get());
 		}
 		LOG.debug(completionService.take().get());
 		executor.shutdown();

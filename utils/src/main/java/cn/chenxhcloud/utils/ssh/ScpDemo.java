@@ -22,8 +22,8 @@ public class ScpDemo {
     
     public static void main(String[] args) {
     	ScpDemo scpDemo = new ScpDemo();
-    	scpDemo.get("/home/ubuntu/myapps/snow-leopard/webapps/Dockerfile", "C:/Users/Administrator/Desktop/");
-    	scpDemo.put("C:/Users/Administrator/Desktop/tb_threads.sql", "/home/ubuntu/myapps/snow-leopard/webapps/");
+    	scpDemo.get("/home/ubuntu/myapps/snow-leopard/webapps/Dockerfile", "target");
+    	scpDemo.put("src/main/java/cn/chenxhcloud/utils/ssh/ScpDemo.java", "/home/ubuntu/myapps/snow-leopard/webapps/");
 	}
 
     /**
