@@ -27,6 +27,7 @@
 		<module>utils</module>
 		<module>batch</module>
 		<module>multithread</module>
+		<module>nosql</module>
 	</modules>
 
 	<repositories>

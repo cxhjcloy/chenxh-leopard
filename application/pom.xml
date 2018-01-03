@@ -29,6 +29,11 @@
 			<artifactId>chenxh-multithread</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>cn.chenxhcloud</groupId>
+			<artifactId>chenxh-nosql</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 		
 		<!-- webserver -->
 		<dependency>
