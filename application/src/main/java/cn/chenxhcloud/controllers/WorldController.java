@@ -78,10 +78,10 @@ public class WorldController {
 		}
 	}
 
-	@GetMapping(value = "getCityById")
+	@GetMapping(value = "getCityInfo/{cityId}")
 	@ApiOperation(value = "根据城市Id查询城市")
 	public WorldCity getCityById(
-			@ApiParam(value = "城市Id", name = "cityId", required = true, example = "1") @RequestParam(name = "cityId", required = true) Integer cityId) {
+			@ApiParam(value = "城市Id", name = "cityId", required = true, example = "1") @PathVariable(name = "cityId")  Integer cityId) {
 		try {
 			WorldCity data = worldService.getCityById(cityId);
 			return data;
