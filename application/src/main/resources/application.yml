@@ -1,3 +1,6 @@
+logging:
+  file: leopard.log
+  path: .
 spring:
   aop:
     proxy-target-class: true
@@ -55,7 +58,9 @@ spring:
         #allow: 127.0.0.1
         #deny: 192.168.0.11
       aop-patterns: cn.chenxhcloud.services.*
-
+  output:
+    ansi:
+      enabled: detect
   batch:
     file-path:
       src: D:/tmp/data/alipay/

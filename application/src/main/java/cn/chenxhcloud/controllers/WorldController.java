@@ -41,7 +41,7 @@ public class WorldController {
 	private WorldService worldService;
 
 	@RequestMapping(value = "getCityList/{pageNo}/{pageSize}", method = RequestMethod.GET)
-	@ApiOperation(value = "获取城市列表")
+	@ApiOperation(value = "获取城市列表", notes="分页查询城市列表，页数从1开始，分页大小大于0")
 	public WorldCityDto getCityList(@PathVariable(name = "pageNo") int pageNo, @PathVariable("pageSize") int pageSize) {
 		WorldCityDto retData = new WorldCityDto();
 		try {
