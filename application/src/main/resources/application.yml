@@ -85,4 +85,9 @@ spring:
     username: chenxh
     password: cxh123
     #virtual-host: /
-      
+  mail:
+    host: smtp.163.com
+    port: 25
+    username: cxh_jcloy@163.com
+    password: cxh234mca$
+    
