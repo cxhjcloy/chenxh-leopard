@@ -7,6 +7,7 @@ management:
 spring:
   application:
     name: snow-leopard
+    version: 1.0.0
   aop:
     proxy-target-class: true
   profiles:
