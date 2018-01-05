@@ -64,3 +64,38 @@ vi /etc/mongod.conf
 security:
     authorization: enabled
 sudo systemctl restart mongod.service
+
+
+
+
+##docker mongo
+
+docker pull mongo
+
+docker run  --name mymongo   -p 27017:27017   -d mongo   --auth
+
+docker exec -it some-mongo mongo admin
+
+> db.createUser({ user: 'jsmith', pwd: 'some-initial-password', roles: [ { role: "userAdminAnyDatabase", db: "admin" } ] });
+db.createUser(
+  {
+    user: "sysadmin",
+    pwd: "cxh123",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+  }
+)
+
+use chenxh
+db.createUser(  
+{  
+   user: "chenxh",  
+   pwd: "cxh123",  
+   roles:  
+   [  
+     {  
+       role: "readWrite",  
+       db: "chenxh"  
+     }  
+   ]  
+ }  
+)
