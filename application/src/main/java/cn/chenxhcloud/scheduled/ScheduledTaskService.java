@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -40,12 +41,16 @@ public class ScheduledTaskService {
 	@Autowired
     private More2More more2More;
 	
+	@Autowired
+    private AmqpTemplate rabbitTemplate;
+	
 	/**
 	 * second ,minute, hour, day of month, month and day of week 每隔5分钟检测一次数据库连接
 	 */
 	@Scheduled(cron = "0 */5 * * * * ")
 	public void testDbConnection() {
 		WorldCity worldCity = worldService.getCityById(100);
+		rabbitTemplate.convertAndSend("hello", worldCity.toString());
 		log.info(worldCity.toString());
 	}
 	

@@ -28,6 +28,7 @@
 		<module>batch</module>
 		<module>multithread</module>
 		<module>nosql</module>
+		<module>amqp</module>
 	</modules>
 
 	<repositories>

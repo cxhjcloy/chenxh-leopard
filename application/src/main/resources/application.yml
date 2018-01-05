@@ -2,6 +2,8 @@ logging:
   file: leopard.log
   path: .
 spring:
+  application:
+    name: snow-leopard
   aop:
     proxy-target-class: true
   profiles:
@@ -73,4 +75,10 @@ spring:
       database: chenxh
       username: chenxh
       password: cxh123
+  rabbitmq:
+    host: 111.230.233.152
+    port: 5673
+    username: chenxh
+    password: cxh123
+    #virtual-host: /
       
