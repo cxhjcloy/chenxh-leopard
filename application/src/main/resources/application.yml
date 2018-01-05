@@ -1,6 +1,9 @@
 logging:
   file: leopard.log
   path: .
+management:
+  security:
+    enabled: false
 spring:
   application:
     name: snow-leopard

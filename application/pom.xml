@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>cn.chenxhcloud</groupId>
 		<artifactId>chenxh-leopard</artifactId>
@@ -17,31 +17,31 @@
 			<artifactId>chenxh-services</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>cn.chenxhcloud</groupId>
 			<artifactId>chenxh-batch</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>cn.chenxhcloud</groupId>
 			<artifactId>chenxh-multithread</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>cn.chenxhcloud</groupId>
 			<artifactId>chenxh-nosql</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>cn.chenxhcloud</groupId>
 			<artifactId>chenxh-amqp</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		
+
 		<!-- webserver -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -79,17 +79,22 @@
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session</artifactId>
 		</dependency>
-		
+
 		<!-- thymeleaf template -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -119,5 +124,5 @@
 			</resource>
 		</resources>
 	</build>
-	
+
 </project>
