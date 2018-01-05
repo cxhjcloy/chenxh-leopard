@@ -29,7 +29,7 @@ public class Sender {
 
     public void send() {
         String context = "hello " + DATE_FORMAT.format(new Date());
-        log.debug("Send:{}"+context);
+        log.debug("Send:{}",context);
         this.rabbitTemplate.convertAndSend("hello", context);
     }
 }
