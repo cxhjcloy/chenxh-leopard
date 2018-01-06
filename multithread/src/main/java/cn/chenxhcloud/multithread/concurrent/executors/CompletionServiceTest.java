@@ -39,7 +39,6 @@ public class CompletionServiceTest {
 			completionService.submit(()-> {
 				int randomInt = new Random().nextInt(5000);
 				Thread.sleep(randomInt);
-				//LOG.debug(Thread.currentThread().getName() + " run..." );
 				return Thread.currentThread().getName() + "-" + temp+"-sleepTime-"+randomInt;
 			});
 		}

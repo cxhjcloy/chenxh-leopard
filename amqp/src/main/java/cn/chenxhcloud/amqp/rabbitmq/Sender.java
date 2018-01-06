@@ -22,13 +22,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class Sender {
 	
-	private static final SimpleDateFormat DATE_FORMAT= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 	private final Logger log = LoggerFactory.getLogger(Receiver.class);
 	@Autowired
     private AmqpTemplate rabbitTemplate;
 
     public void send() {
-        String context = "hello " + DATE_FORMAT.format(new Date());
+        SimpleDateFormat dataFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        String context = "hello " + dataFormat.format(new Date());
         log.debug("Send:{}",context);
         this.rabbitTemplate.convertAndSend("hello", context);
     }

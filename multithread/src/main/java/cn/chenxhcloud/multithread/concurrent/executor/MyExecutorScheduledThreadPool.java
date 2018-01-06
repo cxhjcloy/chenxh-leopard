@@ -27,11 +27,6 @@ public class MyExecutorScheduledThreadPool {
 		ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("demo-pool-%d").build();
 		ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(5,namedThreadFactory);
 		Runnable syncRunnable = () -> {
-			/*try {
-				TimeUnit.SECONDS.sleep(1);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}*/
 			log.info("[{}]HeartBeat....",Thread.currentThread().getName());
 		};
 		executorService.scheduleAtFixedRate(syncRunnable, 3, 2, TimeUnit.SECONDS);

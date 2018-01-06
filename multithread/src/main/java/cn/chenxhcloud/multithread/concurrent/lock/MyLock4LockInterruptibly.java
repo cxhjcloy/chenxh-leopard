@@ -66,7 +66,6 @@ public class MyLock4LockInterruptibly {
 			throw new InterruptedException();
 		}
 		try {
-			//lock.lockInterruptibly();
 			log.debug("线程{}得到了锁...", Thread.currentThread().getName());
 			for (int i = 0; i < COUNTER; i++) {
 				Thread.sleep(1000);

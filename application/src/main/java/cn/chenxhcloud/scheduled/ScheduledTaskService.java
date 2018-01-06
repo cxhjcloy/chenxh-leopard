@@ -29,8 +29,7 @@ import cn.chenxhcloud.services.world.WorldService;
 public class ScheduledTaskService {
 
 	private static final Logger log = LoggerFactory.getLogger(ScheduledTaskService.class);
-	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	
+
 	
 	@Autowired
 	private WorldService worldService;
@@ -58,9 +57,10 @@ public class ScheduledTaskService {
 	 * //@Scheduled(cron = "0 *\/2 * * * * ")
 	 */
 	public void fixedBillBatch() {
-		log.info("job begin {}", DATE_FORMAT.format(new Date()));
+		SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		log.info("job begin {}", dataFormat.format(new Date()));
 		billBatchConfig.run();
-		log.info("job end {}", DATE_FORMAT.format(new Date()));
+		log.info("job end {}", dataFormat.format(new Date()));
 	}
 	/**
 	 * second, minute, hour, day of month, month and day of week.
@@ -72,8 +72,9 @@ public class ScheduledTaskService {
 	 *     6星期           1-7 或者 SUN-SAT
 	 */
 	public void startThreads() {
-		log.info("job begin {}", DATE_FORMAT.format(new Date()));
+		SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		log.info("job begin {}", dataFormat.format(new Date()));
 		more2More.start();
-		log.info("job end {}", DATE_FORMAT.format(new Date()));
+		log.info("job end {}", dataFormat.format(new Date()));
 	}
 }
