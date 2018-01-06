@@ -1,7 +1,7 @@
 FROM maven
 WORKDIR /app
 ADD ["app.tar","."]
-RUN ["mvn","package"]
+RUN ["mvn","package","-Dmaven.test.skip=true"]
 
 FROM openjdk:8-jdk-alpine
 WORKDIR /app
