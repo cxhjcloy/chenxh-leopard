@@ -1,22 +1,20 @@
 package cn.chenxhcloud.lambda;
 
+/**
+ * 
+*   
+* 项目名称：chenxh-leopard  
+* 类名称：.Demo1  
+* @author：chenxh  
+* 创建时间：2018年1月9日 下午6:02:28
+* 描述：
+*
+ */
 public class Demo1 {
 	public static void main(String[] args) {
 		
-		Converter<String, Integer> converter = new Converter<String, Integer>() {
-			@Override
-			public Integer convert(String from) {
-				return Integer.valueOf(from);
-			}
-		};
 		
-		System.out.println(converter.convert("100"));
-		Converter<String, Integer> con = param -> Integer.valueOf(param);
-		System.out.println(con.convert("101"));
+		System.out.println("111");
 	}
 }
 
-@FunctionalInterface
-interface Converter<F, T> {
-	T convert(F from);
-}
