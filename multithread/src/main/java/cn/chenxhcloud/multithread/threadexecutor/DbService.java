@@ -21,10 +21,10 @@ import java.util.List;
  */
 public class DbService {
 	private static Connection getConn() {
-		String driver = "com.mysql.cj.jdbc.Driver";
-		String url = "jdbc:mysql://localhost:3306/mydb?characterEncoding=utf8&useSSL=false&serverTimezone=UTC";
+		String driver = "com.mysql.jdbc.Driver";
+		String url = "jdbc:mysql://gz-cdb-e3mogspj.sql.tencentcdb.com:63643/test?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&autoReconnect=true";
 		String username = "root";
-		String password = "cxh123456";
+		String password = "cxh234mca$";
 		Connection conn = null;
 		try {
 			// classLoader,加载对应驱动
@@ -57,7 +57,7 @@ public class DbService {
 				threadInfo.setQueueSize(rs.getInt("queue_size"));
 				threadInfo.setCounter(rs.getLong("counter"));
 				threadInfo.setMessage(rs.getString("message"));
-				threadInfo.setCrated(rs.getDate("crated"));
+				threadInfo.setCrated(rs.getDate("created"));
 				datas.add(threadInfo);
 			}
 		} catch (SQLException e) {
@@ -82,7 +82,7 @@ public class DbService {
 
 	public static Long getCount() {
 		Connection conn = getConn();
-		String sql = "select max(id) from  tb_threads";
+		String sql = "select 15000000";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Long count = null;
