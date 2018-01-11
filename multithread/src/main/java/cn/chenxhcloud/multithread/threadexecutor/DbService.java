@@ -82,7 +82,7 @@ public class DbService {
 
 	public static Long getCount() {
 		Connection conn = getConn();
-		String sql = "select 15000000";
+		String sql = "select max(id) from tb_threads ";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Long count = null;

@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -30,6 +31,7 @@ import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 @EnableScheduling
 @EnableBatchProcessing
 @EnableAsync
+@ImportResource({"classpath:app-config.xml"})
 public class SpringBootApp {
 	
     public static void main(String[] args) {

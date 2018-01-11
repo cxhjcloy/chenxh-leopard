@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+  						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<context:property-placeholder location="classpath:application.yml" />
+	<context:property-placeholder location="classpath:application-${spring.profiles.active}.yml" />
+	<bean id="myLeopardBean" class="cn.chenxhcloud.beans.MyLeopardBean" init-method="start" destroy-method="shutdown">
+		<property name="properties">
+			<map>
+				<entry key="logLevel" value="${logging.level.cn.chenxhcloud}" />
+				<entry key="appName" value="${spring.application.name}" />
+				<entry key="redisHost" value="${spring.redis.host}" />
+				<entry key="serverPort" value="${server.port}" />
+				<entry key="securityEnable" value="${management.security.enabled}" />
+			</map>
+		</property>
+		
+		<property name="subProperties">
+			<map>
+				<entry value-ref="subMyLeopardBean2">
+					<key>
+						<bean class="cn.chenxhcloud.beans.SubMyLeopardBean1">
+							<property name="id" value="${spring.redis.port}" />
+							<property name="name" value="subMyLeopardBean2" />
+						</bean>
+					</key>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="subMyLeopardBean2" class="cn.chenxhcloud.beans.SubMyLeopardBean2">
+		<property name="subList">
+			<list>
+				<value>Hello</value>
+				<value>World</value>
+			</list>	
+		</property>
+	</bean>
+</beans>
