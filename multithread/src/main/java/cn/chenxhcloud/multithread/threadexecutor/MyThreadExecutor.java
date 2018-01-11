@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -13,6 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
@@ -29,7 +29,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 public class MyThreadExecutor {
 	
 	private static final Integer PAGE_SIZE = 150000;
-
+	
 	/**
 	 * ThreadPoolExecutor的使用
 	 * 		1 corePoolSize: 核心线程数 核心线程会一直存活，及时没有任务需要执行 当线程数小于核心线程数时，即使有线程空闲，线程池也会优先创建新线程处理 设置allowCoreThreadTimeout=true（默认false）时，核心线程会超时关闭
@@ -41,42 +41,71 @@ public class MyThreadExecutor {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
-		Long start = System.currentTimeMillis();
-		
-		Long count = DbService.getCount();
-		
-		Long taskSize = count/PAGE_SIZE+1;
-		
-		ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("demo-pool-%d").build();
-		ExecutorService pool = new ThreadPoolExecutor(50, 500, 0L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(1024),namedThreadFactory);
-		List<Future<List<ThreadInfo>>> list = new ArrayList<Future<List<ThreadInfo>>>();
-		for (int i = 0; i < taskSize; i++) {
-			PageInfo pageInfo = new PageInfo();
-			pageInfo.setStart(i * PAGE_SIZE);
-			pageInfo.setEnd(PAGE_SIZE);
-			Callable<List<ThreadInfo>> c = new MyCallable(pageInfo);
-			Future<List<ThreadInfo>> f = pool.submit(c);
-			list.add(f);
+		Long count = DbService.getCount();	
+		Long taskSize = count/PAGE_SIZE+1;	
+		ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("demo-pool-").build();
+		ExecutorService pool = new ThreadPoolExecutor(2, 500, 0L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(1024),namedThreadFactory);
+		Thread thread1 = new Thread(()-> {
+			Long start = System.currentTimeMillis();
+			for (int i = 0; i < taskSize; i++) {
+				if(i%2 == 0) {
+					PageInfo pageInfo = new PageInfo();
+					pageInfo.setStart(i * PAGE_SIZE);
+					pageInfo.setEnd(PAGE_SIZE);
+					Callable<List<ThreadInfo>> c = new MyCallable(pageInfo);
+					Future<List<ThreadInfo>> f = pool.submit(c);
+					try {
+						List<ThreadInfo> data = f.get();
+						System.out.println(Thread.currentThread().getName()+"得到数据条数："+data.size());
+						data = null;
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}		
+			Long end = System.currentTimeMillis();
+			System.out.println("线程:" + Thread.currentThread().getName() + "执行了" + (end - start) + "毫秒");			
+		},"线程1");
+		Thread thread2 = new Thread(()-> {
+			Long start = System.currentTimeMillis();		
+			for (int i = 0; i < taskSize; i++) {
+				if(i%2 != 0) {
+					PageInfo pageInfo = new PageInfo();
+					pageInfo.setStart(i * PAGE_SIZE);
+					pageInfo.setEnd(PAGE_SIZE);
+					Callable<List<ThreadInfo>> c = new MyCallable(pageInfo);
+					Future<List<ThreadInfo>> f = pool.submit(c);
+					try {
+						List<ThreadInfo> data = f.get();
+						System.out.println(Thread.currentThread().getName()+"得到数据条数："+data.size());
+						data = null;
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}		
+			Long end = System.currentTimeMillis();
+			System.out.println("线程:" + Thread.currentThread().getName() + "执行了" + (end - start) + "毫秒");			
+		},"线程2");
+		thread1.start();
+		thread2.start();
+		try {
+			thread1.join();
+			thread2.join();
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 		pool.shutdown();
-		for (Future<List<ThreadInfo>> future : list) {
-			try {
-				List<ThreadInfo> data = future.get();
-				System.out.println(Thread.currentThread().getName()+"得到数据条数："+data.size());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		Long end = System.currentTimeMillis();
-		System.out.println("线程" + Thread.currentThread().getName() + "执行了" + (end - start) + "毫秒");
 	}
 }
 
+
+
 class MyCallable implements Callable<List<ThreadInfo>> {
 	
+	private static final AtomicInteger THREAD_COUNTER = new AtomicInteger();
 	private PageInfo pageInfo;
-
+	
 	MyCallable(PageInfo pageInfo) {
 		this.pageInfo = pageInfo;
 	}
@@ -88,7 +117,7 @@ class MyCallable implements Callable<List<ThreadInfo>> {
 		FileWriter fw =null;
 		BufferedWriter writer = null;
 		try {
-			File file = new File(Thread.currentThread().getName()+"-"+pageInfo.getStart()+"-"+pageInfo.getEnd()+".data");
+			File file = new File("E:\\threadinfos"+File.separator+Thread.currentThread().getName()+THREAD_COUNTER.getAndIncrement()+"-"+pageInfo.getStart()+"-"+pageInfo.getEnd()+".data");
 			System.out.println(file.getAbsolutePath());
 			fw = new FileWriter(file);
 			writer = new BufferedWriter(fw);
