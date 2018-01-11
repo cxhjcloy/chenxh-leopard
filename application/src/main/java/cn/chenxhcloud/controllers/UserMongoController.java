@@ -1,6 +1,8 @@
 package cn.chenxhcloud.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.chenxhcloud.aop.Auth;
+import cn.chenxhcloud.models.utils.ApiError;
+import cn.chenxhcloud.models.utils.ApiResult;
 import cn.chenxhcloud.nosql.mongo.LogService;
 import cn.chenxhcloud.nosql.mongo.UserService;
 import cn.chenxhcloud.nosql.mongo.entity.LogEntity;
@@ -97,13 +101,31 @@ public class UserMongoController {
 	@Auth(enable=false,isLogin=true,isLog=true)
 	@RequestMapping(value = "findAll", method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiOperation(value = "查找所有user")
-	public List<UserEntity> findAll(HttpServletRequest request) {
+	public ApiResult<Map<String,Object>> findAll(HttpServletRequest request) {
 		try {
-			return userService.findAll();
+			List<UserEntity> data = userService.findAll();
+			Map<String,Object> retData = new HashMap<>();
+			retData.put("total", data.size());
+			retData.put("data", data);
+			return new ApiResult<Map<String,Object>>(ApiError.OK.getCode(),ApiError.OK.getMessage(),retData);
 		} catch (Exception e) {
 			logger.error("UserMongoController.findAll 系统异常：" + e.getMessage());
 			e.printStackTrace();
-			return null;
+			return new ApiResult<Map<String,Object>>(ApiError.UNKNOWN_ERROR.getCode(),ApiError.UNKNOWN_ERROR.getMessage());
+		}
+	}
+	
+	@Auth(enable=false,isLogin=true,isLog=true)
+	@RequestMapping(value = "findAll1", method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ApiOperation(value = "查找所有user1")
+	public ApiResult<List<UserEntity>> findAll1(HttpServletRequest request) {
+		try {
+			List<UserEntity> data = userService.findAll();
+			return new ApiResult<List<UserEntity>>(ApiError.OK.getCode(),ApiError.OK.getMessage(),data);
+		} catch (Exception e) {
+			logger.error("UserMongoController.findAll 系统异常：" + e.getMessage());
+			e.printStackTrace();
+			return new ApiResult<List<UserEntity>>(ApiError.UNKNOWN_ERROR.getCode(),ApiError.UNKNOWN_ERROR.getMessage());
 		}
 	}
 
