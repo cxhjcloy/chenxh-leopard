@@ -34,6 +34,7 @@ import java.util.concurrent.Semaphore;
 public class SemaphoreTest {
 	private static final int THREAD_COUNT = 30;
 	private static ExecutorService threadPool = Executors.newFixedThreadPool(THREAD_COUNT);
+	//设置资源的信号量 5个
 	private static Semaphore s = new Semaphore(5);
 
 	public static void main(String[] args) {
